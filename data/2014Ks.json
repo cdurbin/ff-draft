@@ -1,0 +1,284 @@
+{
+    "DraftProjections": [
+        {
+            "displayName": "Stephen Gostkowski",
+            "fantasyPoints": "141",
+            "fg": "32",
+            "playerId": "752",
+            "team": "NE",
+            "xp": "45"
+        },
+        {
+            "displayName": "Phil Dawson",
+            "fantasyPoints": "132",
+            "fg": "30",
+            "playerId": "748",
+            "team": "SF",
+            "xp": "42"
+        },
+        {
+            "displayName": "Justin Tucker",
+            "fantasyPoints": "132",
+            "fg": "33",
+            "playerId": "2079",
+            "team": "BAL",
+            "xp": "33"
+        },
+        {
+            "displayName": "Matt Prater",
+            "fantasyPoints": "128",
+            "fg": "25",
+            "playerId": "769",
+            "team": "DEN",
+            "xp": "53"
+        },
+        {
+            "displayName": "Dan Bailey",
+            "fantasyPoints": "127",
+            "fg": "29",
+            "playerId": "1685",
+            "team": "DAL",
+            "xp": "40"
+        },
+        {
+            "displayName": "Steven Hauschka",
+            "fantasyPoints": "127",
+            "fg": "29",
+            "playerId": "758",
+            "team": "SEA",
+            "xp": "40"
+        },
+        {
+            "displayName": "Adam Vinatieri",
+            "fantasyPoints": "126",
+            "fg": "30",
+            "playerId": "777",
+            "team": "IND",
+            "xp": "36"
+        },
+        {
+            "displayName": "Mason Crosby",
+            "fantasyPoints": "126",
+            "fg": "27",
+            "playerId": "747",
+            "team": "GB",
+            "xp": "45"
+        },
+        {
+            "displayName": "Nick Novak",
+            "fantasyPoints": "125",
+            "fg": "29",
+            "playerId": "1328",
+            "team": "SD",
+            "xp": "38"
+        },
+        {
+            "displayName": "Matt Bryant",
+            "fantasyPoints": "124",
+            "fg": "29",
+            "playerId": "743",
+            "team": "ATL",
+            "xp": "37"
+        },
+        {
+            "displayName": "Shayne Graham",
+            "fantasyPoints": "124",
+            "fg": "26",
+            "playerId": "754",
+            "team": "NO",
+            "xp": "46"
+        },
+        {
+            "displayName": "Robbie Gould",
+            "fantasyPoints": "120",
+            "fg": "27",
+            "playerId": "753",
+            "team": "CHI",
+            "xp": "39"
+        },
+        {
+            "displayName": "Blair Walsh",
+            "fantasyPoints": "116",
+            "fg": "27",
+            "playerId": "1925",
+            "team": "MIN",
+            "xp": "35"
+        },
+        {
+            "displayName": "Shaun Suisham",
+            "fantasyPoints": "115",
+            "fg": "26",
+            "playerId": "775",
+            "team": "PIT",
+            "xp": "37"
+        },
+        {
+            "displayName": "Jay Feely",
+            "fantasyPoints": "114",
+            "fg": "27",
+            "playerId": "750",
+            "team": "ARI",
+            "xp": "33"
+        },
+        {
+            "displayName": "Alex Henery",
+            "fantasyPoints": "113",
+            "fg": "24",
+            "playerId": "1473",
+            "team": "PHI",
+            "xp": "41"
+        },
+        {
+            "displayName": "Sebastian Janikowski",
+            "fantasyPoints": "113",
+            "fg": "26",
+            "playerId": "759",
+            "team": "OAK",
+            "xp": "35"
+        },
+        {
+            "displayName": "Dan Carpenter",
+            "fantasyPoints": "112",
+            "fg": "26",
+            "playerId": "745",
+            "team": "BUF",
+            "xp": "34"
+        },
+        {
+            "displayName": "Caleb Sturgis",
+            "fantasyPoints": "110",
+            "fg": "26",
+            "playerId": "2134",
+            "team": "MIA",
+            "xp": "32"
+        },
+        {
+            "displayName": "Greg Zuerlein",
+            "fantasyPoints": "110",
+            "fg": "25",
+            "playerId": "1865",
+            "team": "STL",
+            "xp": "35"
+        },
+        {
+            "displayName": "Nick Folk",
+            "fantasyPoints": "110",
+            "fg": "26",
+            "playerId": "751",
+            "team": "NYJ",
+            "xp": "32"
+        },
+        {
+            "displayName": "Ryan Succop",
+            "fantasyPoints": "109",
+            "fg": "24",
+            "playerId": "893",
+            "team": "KC",
+            "xp": "37"
+        },
+        {
+            "displayName": "Graham Gano",
+            "fantasyPoints": "109",
+            "fg": "25",
+            "playerId": "1031",
+            "team": "CAR",
+            "xp": "34"
+        },
+        {
+            "displayName": "Mike Nugent",
+            "fantasyPoints": "107",
+            "fg": "23",
+            "playerId": "768",
+            "team": "CIN",
+            "xp": "38"
+        },
+        {
+            "displayName": "Josh Brown",
+            "fantasyPoints": "107",
+            "fg": "25",
+            "playerId": "741",
+            "team": "NYG",
+            "xp": "32"
+        },
+        {
+            "displayName": "Randy Bullock",
+            "fantasyPoints": "103",
+            "fg": "24",
+            "playerId": "1930",
+            "team": "HOU",
+            "xp": "31"
+        },
+        {
+            "displayName": "Connor Barth",
+            "fantasyPoints": "103",
+            "fg": "24",
+            "playerId": "739",
+            "team": "TB",
+            "xp": "31"
+        },
+        {
+            "displayName": "Josh Scobee",
+            "fantasyPoints": "101",
+            "fg": "24",
+            "playerId": "773",
+            "team": "JAC",
+            "xp": "29"
+        },
+        {
+            "displayName": "Billy Cundiff",
+            "fantasyPoints": "98",
+            "fg": "22",
+            "playerId": "1101",
+            "team": "CLE",
+            "xp": "32"
+        },
+        {
+            "displayName": "Kai Forbath",
+            "fantasyPoints": "96",
+            "fg": "22",
+            "playerId": "1687",
+            "team": "WAS",
+            "xp": "30"
+        },
+        {
+            "displayName": "Maikon Bonani",
+            "fantasyPoints": "95",
+            "fg": "22",
+            "playerId": "2365",
+            "team": "TEN",
+            "xp": "29"
+        },
+        {
+            "displayName": "Nate Freese",
+            "fantasyPoints": "90",
+            "fg": "19",
+            "playerId": "2590",
+            "team": "DET",
+            "xp": "33"
+        },
+        {
+            "displayName": "Giorgio Tavecchio",
+            "fantasyPoints": "69",
+            "fg": "16",
+            "playerId": "1846",
+            "team": "DET",
+            "xp": "21"
+        },
+        {
+            "displayName": "Zach Hocker",
+            "fantasyPoints": "8",
+            "fg": "2",
+            "playerId": "2484",
+            "team": "WAS",
+            "xp": "2"
+        },
+        {
+            "displayName": "Dustin Hopkins",
+            "fantasyPoints": "6",
+            "fg": "2",
+            "playerId": "2124",
+            "team": "BUF",
+            "xp": "0"
+        }
+    ]
+}
