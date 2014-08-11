@@ -1,0 +1,2 @@
+class WideReceiver < AbstractPlayer
+end

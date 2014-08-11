@@ -1,0 +1,2 @@
+class Kicker < AbstractPlayer
+end

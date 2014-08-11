@@ -1,0 +1,2 @@
+class TightEnd < AbstractPlayer
+end

@@ -1,0 +1,2 @@
+class Quarterback < AbstractPlayer
+end

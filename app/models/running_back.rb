@@ -1,0 +1,2 @@
+class RunningBack < AbstractPlayer
+end
