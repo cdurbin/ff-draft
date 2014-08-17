@@ -26,22 +26,28 @@
 
 .value-table table{
   padding-left: 50px;
-  width: 300px;
+  width: 370px;
 }
 
 .groupings .player-table td, .value-table td {
   font-size: small;
   color: black;
-  width: 120px;
-  text-align: center;
+  width: 145px;
+  text-align: left;
 }
 
 .groupings .player-table th, .value-table th {
   font-size: medium;
   color: purple;
-  text-align: center;
-  width: 120px;
+  text-align: left;
+  width: 145px;
 }
+
+/*
+.groupings_fixed {
+  display: auto;
+  color: yellow;
+}*/
 
 
 

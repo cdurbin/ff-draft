@@ -54,5 +54,16 @@ FantasyFootball::Application.routes.draw do
   #     resources :products
   #   end
 
-  resource :players
+  resources :players do
+  end
+
+  resources :leagues do
+  end
+
+  resources :drafts do
+  end
+
+  resources :scoring_settings do
+  end
+
 end

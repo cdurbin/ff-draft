@@ -1,0 +1,2 @@
+#Settings for Dave's League
+curl -XPOST "http://localhost:3000/scoring_settings?name=DavesLeague&passing_yards=.05&int_thrown=-2&passing_td=6&rush_yards=.1&rush_td=6&fumbles_lost=-2&rec=0&rec_yards=.1&rec_td=6&return_yards=.04&misc_td=6&misc_2pc=2" -d ''

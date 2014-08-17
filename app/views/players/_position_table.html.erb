@@ -7,7 +7,7 @@
     </tr>
     <% players.each do |player| %>
       <tr>
-        <td><%= player.display_name %></td>
+        <td><%= "(#{player.overall_rank}) #{player.display_name}" %></td>
         <td><%= player.fantasy_points %></td>
       </tr>
     <% end %>

@@ -1,13 +1,2 @@
-<div class="value-table">
-  <%= render partial: "value_table", locals: {players: @top_values} %></li>
-</div>
-<div class="groupings">
-  <ul>
-    <li><%= render partial: "position_table", locals: {position: "Quarterbacks", players: @qbs} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Running Backs", players: @rbs} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Wide Receivers", players: @wrs} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Tight Ends", players: @tes} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Defenses", players: @defenses} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Kickers", players: @kickers} %></li>
-  </ul>
-</div>
+<h1><%= "(#{@player.overall_rank}) #{@player.display_name}" %></h1>
+<p><%= @player.to_json %></p>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805223538) do
+ActiveRecord::Schema.define(version: 20140816143019) do
 
   create_table "defenses", primary_key: "player_id", force: true do |t|
     t.string   "display_name"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20140805223538) do
     t.string   "team"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "overall_rank"
+    t.integer  "position_rank"
+    t.float    "nerd_rank"
+  end
+
+  create_table "drafts", force: true do |t|
+    t.integer  "league_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "kickers", primary_key: "player_id", force: true do |t|
@@ -32,6 +41,15 @@ ActiveRecord::Schema.define(version: 20140805223538) do
     t.integer  "fg"
     t.integer  "xp"
     t.string   "team"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "overall_rank"
+    t.integer  "position_rank"
+    t.float    "nerd_rank"
+  end
+
+  create_table "leagues", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -49,6 +67,9 @@ ActiveRecord::Schema.define(version: 20140805223538) do
     t.string   "team"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "overall_rank"
+    t.integer  "position_rank"
+    t.float    "nerd_rank"
   end
 
   create_table "running_backs", primary_key: "player_id", force: true do |t|
@@ -62,6 +83,27 @@ ActiveRecord::Schema.define(version: 20140805223538) do
     t.integer  "rush_td"
     t.integer  "rush_yards"
     t.string   "team"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "overall_rank"
+    t.integer  "position_rank"
+    t.float    "nerd_rank"
+  end
+
+  create_table "scoring_settings", force: true do |t|
+    t.string   "name"
+    t.float    "passing_yards"
+    t.float    "int_thrown"
+    t.float    "passing_td"
+    t.float    "rush_yards"
+    t.float    "rush_td"
+    t.float    "fumbles_lost"
+    t.float    "rec"
+    t.float    "rec_yards"
+    t.float    "rec_td"
+    t.float    "return_yards"
+    t.float    "misc_td"
+    t.float    "misc_2pc"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -79,6 +121,9 @@ ActiveRecord::Schema.define(version: 20140805223538) do
     t.string   "team"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "overall_rank"
+    t.integer  "position_rank"
+    t.float    "nerd_rank"
   end
 
   create_table "wide_receivers", primary_key: "player_id", force: true do |t|
@@ -94,6 +139,9 @@ ActiveRecord::Schema.define(version: 20140805223538) do
     t.string   "team"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "overall_rank"
+    t.integer  "position_rank"
+    t.float    "nerd_rank"
   end
 
 end

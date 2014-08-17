@@ -3,11 +3,11 @@
   <table>
     <tr>
       <th>Player</th>
-      <th>Value Above Nominal</th>
+      <th>Value Differential</th>
     </tr>
     <% players.each do |player| %>
       <tr>
-        <td><%= player.display_name %></td>
+        <td><%= "(#{player.overall_rank}) #{player.display_name}" %></td>
         <td><%= player.value_above_nominal %></td>
       </tr>
     <% end %>
