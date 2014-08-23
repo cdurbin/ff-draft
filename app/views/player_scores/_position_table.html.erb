@@ -1,0 +1,15 @@
+<div class="player-table">
+  <h1><%= position %> </h1>
+  <table>
+    <tr>
+      <th>Player</th>
+      <th>Fantasy Points</th>
+    </tr>
+    <% players.each do |player| %>
+      <tr>
+        <td><%= "#{player.display_name}" %></td>
+        <td><%= player.fantasy_points.to_i %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

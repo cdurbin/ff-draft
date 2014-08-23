@@ -1,0 +1,15 @@
+<div class="value-table">
+  <h1>Top 20 Values</h1>
+  <table>
+    <tr>
+      <th>Player</th>
+      <th>Value Differential</th>
+    </tr>
+    <% players.each do |player| %>
+      <tr>
+        <td><%= "#{player.display_name}" %></td>
+        <td><%= player.value_above_nominal %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

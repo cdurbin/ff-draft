@@ -57,6 +57,9 @@ FantasyFootball::Application.routes.draw do
   resources :players do
   end
 
+  resources :player_scores do
+  end
+
   resources :leagues do
   end
 
