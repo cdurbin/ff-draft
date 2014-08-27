@@ -1,5 +1,5 @@
 <div class="value-table">
-  <h1>Last 20 Picks</h1>
+  <h1>Last 24 Picks</h1>
   <table>
     <tr>
       <th>Player</th>
@@ -7,8 +7,12 @@
     </tr>
     <% draft_picks.each do |draft_pick| %>
       <tr>
-        <td><%= link_to "#{draft_pick.display_name}", undo_pick_draft_picks_path(draft_id: @draft_id, player_id: draft_pick.player_id, action: 'undo_pick'), method: 'post' %></td>
-        <td><%= "#{draft_pick.pick_number}" %></td>
+        <% if draft_pick.pick_number %>
+          <td><%= link_to "#{draft_pick.display_name}", undo_pick_draft_picks_path(draft_id: @draft_id, player_id: draft_pick.player_id, action: 'undo_pick'), method: 'post' %></td>
+          <td><%= "#{draft_pick.pick_number}" %></td>
+        <% else %>
+          <td> None </td>
+        <% end %>
       </tr>
     <% end %>
   </table>

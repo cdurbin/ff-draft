@@ -1,5 +1,5 @@
 <div class="value-table">
-  <h1>Top 20 Values</h1>
+  <h1>Top 24 Values</h1>
   <table>
     <tr>
       <th>Position</th>
@@ -8,7 +8,7 @@
     </tr>
     <% players.each do |player| %>
       <tr>
-        <% if player.position %>
+        <% if player.respond_to? :position %>
           <td> <%= "#{player.position} (#{player.overall_rank}) " %> </td>
         <% else %>
           <td> <%= "(#{player.overall_rank}) " %></td>

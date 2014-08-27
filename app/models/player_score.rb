@@ -33,6 +33,14 @@ class PlayerScore < ActiveRecord::Base
       # kickers = Kicker.order("fantasy_points desc")
 
       all_lists = [rbs, wrs, qbs, tes, defenses, kickers]
+      all_players = all_lists.flatten
+      all_players.sort!{|a, b| a.overall_rank <=> b.overall_rank}
+      # binding.pry if (offset != 0)
+      all_players = all_players.slice(offset...num + offset)
+
+      last_rank = all_players.last.overall_rank
+      first_rank = all_players.first.overall_rank
+
       new_list = []
       all_lists.each do |position_list|
         comparison = nil
@@ -40,12 +48,17 @@ class PlayerScore < ActiveRecord::Base
         i = 0
         while (!comparison)
           player = position_list[i]
-          if (player.overall_rank > offset && !num_to_skip)
+          if (!player)
+            position_list = []
+            break
+          end
+          if (player.overall_rank >= first_rank && !num_to_skip)
             num_to_skip = i
           end
-          if (player.overall_rank > NUM_TO_CONSIDER + offset)
+          if (player.overall_rank > last_rank)
             comparison = player.fantasy_points
             if (num_to_skip != i)
+              # binding.pry
               position_list = position_list.slice(num_to_skip..i)
             else
               position_list = []
