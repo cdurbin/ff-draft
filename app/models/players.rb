@@ -20,7 +20,6 @@ class Players
       player = nil
       positions.each do |pos|
         model = get_class_for_position(pos)
-        # binding.pry
         player = model.class.find_by player_id: id
 
         break if player
@@ -83,7 +82,6 @@ class Players
           if (player.overall_rank > NUM_TO_CONSIDER + offset)
             comparison = player.fantasy_points
             if (num_to_skip != i)
-              # binding.pry
               position_list = position_list.slice(num_to_skip..i)
             else
               position_list = []
@@ -91,13 +89,11 @@ class Players
           end
           i = i+1
         end
-        # binding.pry
         position_list.each do |new_player|
           new_player.value_above_nominal = new_player.fantasy_points - comparison
         end
         new_list.push(position_list)
       end
-      # binding.pry
       all_players = new_list.flatten
       all_players.sort!{|a, b| b.value_above_nominal <=> a.value_above_nominal}
       all_players.first(num)

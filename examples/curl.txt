@@ -1,2 +1,8 @@
 #Settings for Dave's League
-curl -XPOST "http://localhost:3000/scoring_settings?name=DavesLeague&passing_yards=.05&int_thrown=-2&passing_td=6&rush_yards=.1&rush_td=6&fumbles_lost=-2&rec=0&rec_yards=.1&rec_td=6&return_yards=.04&misc_td=6&misc_2pc=2" -d ''
+curl -i -XPOST "http://localhost:3000/scoring_settings?name=DavesLeague&passing_yards=.05&int_thrown=-2&passing_td=6&rush_yards=.1&rush_td=6&fumbles_lost=-2&rec=0&rec_yards=.1&rec_td=6&return_yards=.04&misc_td=6&misc_2pc=2" -d ''
+
+#Settings for Bryan's League
+curl -i -XPOST "http://localhost:3000/scoring_settings?name=BryansLeague&passing_yards=.04&int_thrown=-2&passing_td=6&rush_yards=.1&rush_td=6&fumbles_lost=-2&rec=0.5&rec_yards=.1&rec_td=6&return_yards=0&misc_td=6&misc_2pc=2" -d ''
+
+#Settings for FFN's League
+curl -i -XPOST "http://localhost:3000/scoring_settings?name=FFNLeague&passing_yards=.04&int_thrown=-2&passing_td=4&rush_yards=.1&rush_td=6&fumbles_lost=-2&rec=1&rec_yards=.1&rec_td=6&return_yards=0&misc_td=6&misc_2pc=2" -d ''

@@ -43,6 +43,10 @@
   width: 145px;
 }
 
+h1 {
+  text-align: center;
+}
+
 /*
 .groupings_fixed {
   display: auto;

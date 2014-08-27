@@ -1,0 +1,15 @@
+<%= form_for :draft_pick do |f| %>
+  <p>
+    <%= f.label :player_id %><br>
+    <%= f.text_field :player_id %>
+  </p>
+
+  <p>
+    <%= f.label :pick_number %><br>
+    <%= f.text_field :pick_number %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

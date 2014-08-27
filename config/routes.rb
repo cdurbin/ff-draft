@@ -66,6 +66,12 @@ FantasyFootball::Application.routes.draw do
   resources :drafts do
   end
 
+  resources :draft_picks do
+    collection do
+      post 'undo_pick'
+    end
+  end
+
   resources :scoring_settings do
   end
 

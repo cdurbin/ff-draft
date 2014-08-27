@@ -65,7 +65,6 @@ class Averages
       # total_points = 0
       # points.each do |point|
       #   point = point.to_i
-      #   # binding.pry
       #   # puts "Point is #{point}"
       #   total_points += point
       # end
