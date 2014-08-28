@@ -26,13 +26,13 @@
 
 .value-table table{
   padding-left: 50px;
-  width: 370px;
+  width: 400px;
 }
 
 .groupings .player-table td, .value-table td {
   font-size: small;
   color: black;
-  width: 145px;
+  width: 165px;
   text-align: left;
 }
 
@@ -40,7 +40,7 @@
   font-size: medium;
   color: purple;
   text-align: left;
-  width: 145px;
+  width: 165px;
 }
 
 h1 {
