@@ -1,9 +1,6 @@
-require 'pry'
-
 class PlayerScore < ActiveRecord::Base
   attr_accessor :value_above_nominal
 
-  NUM_TO_CONSIDER = 24
   def self.save_scores(scoring_settings_id)
     ss = ScoringSetting.find_by id: scoring_settings_id
     rbs = RunningBack.where.not(fumbles: nil)
@@ -17,63 +14,46 @@ class PlayerScore < ActiveRecord::Base
   end
 
   def self.get_top(num, offset, rbs, wrs, qbs, tes, defenses, kickers)
-      # multiplier = 1.778
-      # rbs = RunningBack.order("overall_rank asc").limit(NUM_TO_CONSIDER)
-      # wrs = WideReceiver.order("overall_rank asc").limit(NUM_TO_CONSIDER)
-      # qbs = Quarterback.order("overall_rank asc").limit(NUM_TO_CONSIDER)
-      # tes = TightEnd.order("overall_rank asc").limit(NUM_TO_CONSIDER)
-      # defenses = Defense.order("overall_rank asc").limit(NUM_TO_CONSIDER)
-      # kickers = Kicker.order("overall_rank asc").limit(NUM_TO_CONSIDER)
+    all_lists = [rbs, wrs, qbs, tes, defenses, kickers]
+    all_players = all_lists.flatten
+    all_players.sort!{|a, b| a.overall_rank <=> b.overall_rank}
+    all_players = all_players.slice(offset...num + offset)
 
-      # rbs = RunningBack.order("fantasy_points desc")
-      # wrs = WideReceiver.order("fantasy_points desc")
-      # qbs = Quarterback.order("fantasy_points desc")
-      # tes = TightEnd.order("fantasy_points desc")
-      # defenses = Defense.order("fantasy_points desc")
-      # kickers = Kicker.order("fantasy_points desc")
+    last_rank = all_players.last.overall_rank
+    first_rank = all_players.first.overall_rank
 
-      all_lists = [rbs, wrs, qbs, tes, defenses, kickers]
-      all_players = all_lists.flatten
-      all_players.sort!{|a, b| a.overall_rank <=> b.overall_rank}
-      # binding.pry if (offset != 0)
-      all_players = all_players.slice(offset...num + offset)
-
-      last_rank = all_players.last.overall_rank
-      first_rank = all_players.first.overall_rank
-
-      new_list = []
-      all_lists.each do |position_list|
-        comparison = nil
-        num_to_skip = nil
-        i = 0
-        while (!comparison)
-          player = position_list[i]
-          if (!player)
+    new_list = []
+    all_lists.each do |position_list|
+      comparison = nil
+      num_to_skip = nil
+      i = 0
+      while (!comparison)
+        player = position_list[i]
+        if (!player)
+          position_list = []
+          break
+        end
+        if (player.overall_rank >= first_rank && !num_to_skip)
+          num_to_skip = i
+        end
+        if (player.overall_rank > last_rank)
+          comparison = player.fantasy_points
+          if (num_to_skip != i)
+            position_list = position_list.slice(num_to_skip..i)
+          else
             position_list = []
-            break
           end
-          if (player.overall_rank >= first_rank && !num_to_skip)
-            num_to_skip = i
-          end
-          if (player.overall_rank > last_rank)
-            comparison = player.fantasy_points
-            if (num_to_skip != i)
-              # binding.pry
-              position_list = position_list.slice(num_to_skip..i)
-            else
-              position_list = []
-            end
-          end
-          i = i+1
         end
-        position_list.each do |new_player|
-          new_player.value_above_nominal = new_player.fantasy_points - comparison
-        end
-        new_list.push(position_list)
+        i = i+1
       end
-      all_players = new_list.flatten
-      all_players.sort!{|a, b| b.value_above_nominal <=> a.value_above_nominal}
-      all_players.first(num)
+      position_list.each do |new_player|
+        new_player.value_above_nominal = new_player.fantasy_points - comparison
+      end
+      new_list.push(position_list)
+    end
+    all_players = new_list.flatten
+    all_players.sort!{|a, b| b.value_above_nominal <=> a.value_above_nominal}
+    all_players.first(num)
   end
 
   def self.save_rankings(scoring_settings_id)
@@ -81,17 +61,13 @@ class PlayerScore < ActiveRecord::Base
     wrs = PlayerScore.where({scoring_settings_id: scoring_settings_id, position: "WR"}).order("fantasy_points desc")
     tes = PlayerScore.where({scoring_settings_id: scoring_settings_id, position: "TE"}).order("fantasy_points desc")
     qbs = PlayerScore.where({scoring_settings_id: scoring_settings_id, position: "QB"}).order("fantasy_points desc")
-    # defenses = Defense.order("fantasy_points desc")
-    # kickers = Kicker.order("fantasy_points desc")
+
 
     last_rb = rbs.at(29)
     last_wr = wrs.at(29)
     last_te = tes.at(11)
-    # last_defense = defenses.at(11)
-    # last_kicker = kickers.at(11)
     last_qb = qbs.at(11)
 
-    # [rbs, last_rb, wrs, last_wr, qbs, last_qb, tes, last_te, defenses, last_defense, kickers, last_kicker].each do |players, nominal_player|
     [[rbs, last_rb], [wrs, last_wr], [qbs, last_qb], [tes, last_te]].each do |positions_array|
       players = positions_array.at(0)
       nominal_player = positions_array.at(1)
@@ -99,7 +75,6 @@ class PlayerScore < ActiveRecord::Base
         player.value_above_nominal = player.fantasy_points - nominal_player.fantasy_points
       end
     end
-    # all_players = [rbs, wrs, qbs, tes, defenses, kickers].flatten
     all_players = [rbs, wrs, qbs, tes].flatten
     all_players.sort!{|a, b| b.value_above_nominal <=> a.value_above_nominal}
     i = 1
@@ -108,7 +83,6 @@ class PlayerScore < ActiveRecord::Base
       player.save
       i = i + 1
     end
-
   end
   private
 
@@ -122,8 +96,6 @@ class PlayerScore < ActiveRecord::Base
       fp = fp + ss.rec_yards * flex.rec_yards
       fp = fp + ss.rec_td * flex.rec_td
       # fp = fp + ss.return_yards * flex.return_yards
-      # fp = fp + ss.misc_td * flex.misc_td
-      # fp = fp + ss.misc_2pc * flex.misc_2pc
       ps = PlayerScore.find_by({player_id: flex.player_id, scoring_settings_id: ss.id}) || PlayerScore.new({
         player_id: flex.player_id,
         display_name: flex.display_name,
@@ -145,9 +117,6 @@ class PlayerScore < ActiveRecord::Base
       # fp = fp + ss.completions * qb.completions
       fp = fp + ss.passing_yards * qb.passing_yards
       fp = fp + ss.passing_td * qb.passing_td
-      # fp = fp + ss.return_yards * qb.return_yards
-      # fp = fp + ss.misc_td * qb.misc_td
-      # fp = fp + ss.misc_2pc * qb.misc_2pc
       ps = PlayerScore.find_by({player_id: qb.player_id, scoring_settings_id: ss.id}) || PlayerScore.new({
         player_id: qb.player_id,
         display_name: qb.display_name,

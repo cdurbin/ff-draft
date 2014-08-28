@@ -7,7 +7,7 @@
     </tr>
     <% players.each do |player| %>
       <tr>
-        <td><%= link_to "(#{player.overall_rank}) #{player.display_name}", draft_picks_path(draft_id: @draft_id, player_id: player.player_id), method: :post %></td>
+        <td><%= link_to "(#{player.overall_rank}) #{player.display_name}", draft_picks_path(draft_id: @draft.id, player_id: player.player_id), method: :post %></td>
         <td><%= player.fantasy_points.to_i %></td>
       </tr>
     <% end %>

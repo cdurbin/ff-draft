@@ -8,7 +8,7 @@
     <% draft_picks.each do |draft_pick| %>
       <tr>
         <% if draft_pick.pick_number %>
-          <td><%= link_to "#{draft_pick.display_name}", undo_pick_draft_picks_path(draft_id: @draft_id, player_id: draft_pick.player_id, action: 'undo_pick'), method: 'post' %></td>
+          <td><%= link_to "#{draft_pick.display_name}", undo_pick_draft_picks_path(draft_id: @draft.id, player_id: draft_pick.player_id, action: 'undo_pick'), method: 'post' %></td>
           <td><%= "#{draft_pick.pick_number}" %></td>
         <% else %>
           <td> None </td>

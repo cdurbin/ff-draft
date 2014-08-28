@@ -15,7 +15,6 @@ class DraftPicksController < ApplicationController
       draft_id: params[:draft_id]})
     pick.pick_number = pick_number
     pick.save!
-    # render text: pick_number
     redirect_to player_scores_path(draft_id: params[:draft_id])
   end
 
@@ -26,7 +25,6 @@ class DraftPicksController < ApplicationController
       draft_id: params[:draft_id]})
     pick.pick_number = nil
     pick.save!
-    # render text: pick_number
     redirect_to player_scores_path(draft_id: params[:draft_id])
   end
 end
