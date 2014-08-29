@@ -95,7 +95,7 @@ class PlayerScore < ActiveRecord::Base
       fp = fp + ss.rec * flex.rec
       fp = fp + ss.rec_yards * flex.rec_yards
       fp = fp + ss.rec_td * flex.rec_td
-      # fp = fp + ss.return_yards * flex.return_yards
+      fp = fp + ss.return_yards * (flex.punt_return_yards + flex.kickoff_return_yards) if flex.respond_to? :punt_return_yards
       ps = PlayerScore.find_by({player_id: flex.player_id, scoring_settings_id: ss.id}) || PlayerScore.new({
         player_id: flex.player_id,
         display_name: flex.display_name,
@@ -104,6 +104,7 @@ class PlayerScore < ActiveRecord::Base
         position: position,
         overall_rank: flex.overall_rank
         })
+      ps.fantasy_points = fp
       ps.save
     end
   end
