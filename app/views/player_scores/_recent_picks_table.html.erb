@@ -1,5 +1,6 @@
 <div class="value-table">
-  <h1>Last 24 Picks</h1>
+  <h1>Last 24 Picks <%= @counts.to_json %></h1>
+  <p></p>
   <table>
     <tr>
       <th>Player</th>
@@ -7,13 +8,14 @@
     </tr>
     <% draft_picks.each do |draft_pick| %>
       <tr>
-        <% if draft_pick.pick_number %>
           <td><%= link_to "#{draft_pick.display_name}", undo_pick_draft_picks_path(draft_id: @draft.id, player_id: draft_pick.player_id, action: 'undo_pick'), method: 'post' %></td>
           <td><%= "#{draft_pick.pick_number}" %></td>
-        <% else %>
-          <td> None </td>
-        <% end %>
       </tr>
+    <% end %>
+    <% i = draft_picks.length %>
+    <% while (i < 24) do %>
+      <tr> <td> None </td> </tr>
+      <% i = i + 1 %>
     <% end %>
   </table>
 </div>

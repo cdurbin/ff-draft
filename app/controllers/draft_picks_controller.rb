@@ -1,5 +1,5 @@
-require 'pry'
 class DraftPicksController < ApplicationController
+  @@counts = {rb: 0, wr: 0, qb: 0, te: 0, defense: 0, k: 0}
   def create
     raise "Missing draft id" if !params[:draft_id]
     raise "Missing player id" if !params[:player_id]
@@ -25,6 +25,12 @@ class DraftPicksController < ApplicationController
       draft_id: params[:draft_id]})
     pick.pick_number = nil
     pick.save!
+    redirect_to player_scores_path(draft_id: params[:draft_id])
+  end
+
+  def reset_picks
+    raise "Missing draft id" if !params[:draft_id]
+    DraftPick.initialize_draft_picks(params[:draft_id])
     redirect_to player_scores_path(draft_id: params[:draft_id])
   end
 end

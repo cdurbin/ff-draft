@@ -69,6 +69,7 @@ FantasyFootball::Application.routes.draw do
   resources :draft_picks do
     collection do
       post 'undo_pick'
+      post 'reset_picks'
     end
   end
 

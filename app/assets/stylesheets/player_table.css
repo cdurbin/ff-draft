@@ -46,3 +46,13 @@
 h1 {
   text-align: center;
 }
+
+/* All links are always blue even when visited */
+a {
+  color: blue;
+}
+
+.links {
+  font-size: small;
+  text-align: right;
+}
