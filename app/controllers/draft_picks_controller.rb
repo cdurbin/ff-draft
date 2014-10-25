@@ -1,5 +1,4 @@
 class DraftPicksController < ApplicationController
-  @@counts = {rb: 0, wr: 0, qb: 0, te: 0, defense: 0, k: 0}
   def create
     raise "Missing draft id" if !params[:draft_id]
     raise "Missing player id" if !params[:player_id]
