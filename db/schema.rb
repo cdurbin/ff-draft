@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141025145906) do
+ActiveRecord::Schema.define(version: 20141026110713) do
 
   create_table "defenses", primary_key: "player_id", force: true do |t|
     t.string   "display_name"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 20141025145906) do
     t.string   "last_update"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "salary",          default: 0
   end
 
   create_table "wide_receivers", primary_key: "player_id", force: true do |t|
