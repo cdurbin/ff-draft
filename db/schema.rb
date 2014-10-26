@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829015128) do
+ActiveRecord::Schema.define(version: 20141025145906) do
 
   create_table "defenses", primary_key: "player_id", force: true do |t|
     t.string   "display_name"
@@ -146,6 +146,26 @@ ActiveRecord::Schema.define(version: 20140829015128) do
     t.integer  "overall_rank"
     t.integer  "position_rank"
     t.float    "nerd_rank"
+  end
+
+  create_table "weekly_rankings", force: true do |t|
+    t.integer  "player_id"
+    t.string   "name"
+    t.integer  "week"
+    t.string   "position"
+    t.string   "team"
+    t.float    "standard"
+    t.float    "standard_low"
+    t.float    "standard_high"
+    t.float    "ppr"
+    t.float    "ppr_low"
+    t.float    "ppr_high"
+    t.string   "injury"
+    t.string   "practice_status"
+    t.string   "game_status"
+    t.string   "last_update"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "wide_receivers", primary_key: "player_id", force: true do |t|
