@@ -82,6 +82,20 @@ class WeeklyRanking < ActiveRecord::Base
     wr3_list = eliminate_players_helper(week_number, 'WR', field)
     te_list = eliminate_players_helper(week_number, 'TE', field)
     def_list = eliminate_players_helper(week_number, 'DEF', field)
+
+    top_qb_points = qb_list.first.send(field.to_sym)
+    top_rb_points = rb1_list.first.send(field.to_sym)
+    top_wr_points = wr1_list.first.send(field.to_sym)
+    top_te_points = te_list.first.send(field.to_sym)
+    top_def_points = def_list.first.send(field.to_sym)
+
+    puts "Top scorer values:
+    QB: #{top_qb_points}
+    RB: #{top_rb_points}
+    WR: #{top_wr_points}
+    TE: #{top_te_points}
+    DEF: #{top_def_points}"
+
     max_score = 0
     allowed_salary = 55500
 
@@ -100,33 +114,41 @@ class WeeklyRanking < ActiveRecord::Base
               my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary
               if ((allowed_salary - my_salary) >= 18000)
                 my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.send(field.to_sym)
-                wr2_list.each do |wr2|
-                  if (wr1.player_id != wr2.player_id)
-                    my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary
-                    if ((allowed_salary - my_salary) >= 13500)
-                      my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.send(field.to_sym) + wr2.send(field.to_sym)
-                      wr3_list.each do |wr3|
-                        if (wr1.player_id != wr3.player_id && wr2.player_id != wr3.player_id)
-                          my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary
-                          if ((allowed_salary - my_salary) >= 9000)
-                            my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.send(field.to_sym) + wr2.send(field.to_sym) + wr3.send(field.to_sym)
-                            te_list.each do |te|
-                              my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary + te.salary
-                              if ((allowed_salary - my_salary) >= 4500)
-                                my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.salary + wr2.salary + wr3.salary + te.send(field.to_sym)
-                                def_list.each do |defense|
-                                  my_points = my_points + defense.send(field.to_sym)
-                                  my_salary = my_salary + defense.salary
-                                  if (my_salary <= allowed_salary && my_points > max_score)
-                                    max_score = my_points
-                                    best_team.qb = qb
-                                    best_team.rb1 = rb1
-                                    best_team.rb2 = rb2
-                                    best_team.wr1 = wr1
-                                    best_team.wr2 = wr2
-                                    best_team.wr3 = wr3
-                                    best_team.te = te
-                                    best_team.defense = defense
+                if (my_points + top_wr_points + top_wr_points + top_te_points + top_def_points > max_score)
+                  wr2_list.each do |wr2|
+                    if (wr1.player_id != wr2.player_id)
+                      my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary
+                      if ((allowed_salary - my_salary) >= 13500)
+                        my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.send(field.to_sym) + wr2.send(field.to_sym)
+                        if (my_points + top_wr_points + top_te_points + top_def_points > max_score)
+                          wr3_list.each do |wr3|
+                            if (wr1.player_id != wr3.player_id && wr2.player_id != wr3.player_id)
+                              my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary
+                              if ((allowed_salary - my_salary) >= 9000)
+                                my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.send(field.to_sym) + wr2.send(field.to_sym) + wr3.send(field.to_sym)
+                                if (my_points + top_te_points + top_def_points > max_score)
+                                  te_list.each do |te|
+                                    my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary + te.salary
+                                    if ((allowed_salary - my_salary) >= 4500)
+                                      my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.send(field.to_sym) + wr2.send(field.to_sym) + wr3.send(field.to_sym) + te.send(field.to_sym)
+                                      if (my_points + top_def_points > max_score)
+                                        def_list.each do |defense|
+                                          my_points = my_points + defense.send(field.to_sym)
+                                          my_salary = my_salary + defense.salary
+                                          if (my_salary <= allowed_salary && my_points > max_score)
+                                            max_score = my_points
+                                            best_team.qb = qb
+                                            best_team.rb1 = rb1
+                                            best_team.rb2 = rb2
+                                            best_team.wr1 = wr1
+                                            best_team.wr2 = wr2
+                                            best_team.wr3 = wr3
+                                            best_team.te = te
+                                            best_team.defense = defense
+                                          end
+                                        end
+                                      end
+                                    end
                                   end
                                 end
                               end
