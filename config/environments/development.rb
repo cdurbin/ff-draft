@@ -27,5 +27,5 @@ FantasyFootball::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
- config.log_level = :debug
+ config.log_level = :info
 end
