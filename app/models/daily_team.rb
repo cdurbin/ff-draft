@@ -11,14 +11,14 @@ class DailyTeam
 
   def pretty_print
     "
-    QB: #{@qb.name} #{@qb.salary}
-    RB1: #{@rb1.name} #{@rb1.salary}
-    RB2: #{@rb2.name} #{@rb2.salary}
-    WR1: #{@wr1.name} #{@wr1.salary}
-    WR2: #{@wr2.name} #{@wr2.salary}
-    WR3: #{@wr3.name} #{@wr3.salary}
-    TE: #{@te.name} #{@te.salary}
-    DEF: #{@defense.name} #{@defense.salary}
+    QB: #{@qb.name} #{@qb.salary} #{qb.ppr} #{qb.ppr_low} #{qb.ppr_high}
+    RB1: #{@rb1.name} #{@rb1.salary} #{rb1.ppr} #{rb1.ppr_low} #{rb1.ppr_high}
+    RB2: #{@rb2.name} #{@rb2.salary} #{rb2.ppr} #{rb2.ppr_low} #{rb2.ppr_high}
+    WR1: #{@wr1.name} #{@wr1.salary} #{wr1.ppr} #{wr1.ppr_low} #{wr1.ppr_high}
+    WR2: #{@wr2.name} #{@wr2.salary} #{wr2.ppr} #{wr2.ppr_low} #{wr2.ppr_high}
+    WR3: #{@wr3.name} #{@wr3.salary} #{wr3.ppr} #{wr3.ppr_low} #{wr3.ppr_high}
+    TE: #{@te.name} #{@te.salary} #{te.ppr} #{te.ppr_low} #{te.ppr_high}
+    DEF: #{@defense.name} #{@defense.salary} #{defense.ppr} #{defense.ppr_low} #{defense.ppr_high}
     Total points: #{total_points.to_i}
     Points ceiling: #{total_points_high.to_i}
     Points floor: #{total_points_low.to_i}
