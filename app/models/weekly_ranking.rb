@@ -104,31 +104,39 @@ class WeeklyRanking < ActiveRecord::Base
             my_points = qb.ppr + rb1.ppr + rb2.ppr
             wr1_list.each do |wr1|
               my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary
-              my_points = qb.ppr + rb1.ppr + rb2.ppr + wr1.ppr
-              wr2_list.each do |wr2|
-                if (wr1.player_id != wr2.player_id)
-                  my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary
-                  my_points = qb.ppr + rb1.ppr + rb2.ppr + wr1.ppr + wr2.ppr
-                  wr3_list.each do |wr3|
-                    if (wr1.player_id != wr3.player_id && wr2.player_id != wr3.player_id)
-                      my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary
-                      my_points = qb.ppr + rb1.ppr + rb2.ppr + wr1.ppr + wr2.ppr + wr3.ppr
-                      te_list.each do |te|
-                        my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary + te.salary
-                        my_points = qb.ppr + rb1.ppr + rb2.ppr + wr1.salary + wr2.salary + wr3.salary + te.ppr
-                        def_list.each do |defense|
-                          my_points = my_points + defense.ppr
-                          my_salary = my_salary + defense.salary
-                          if (my_salary <= allowed_salary && my_points > max_score)
-                            max_score = my_points
-                            best_team.qb = qb
-                            best_team.rb1 = rb1
-                            best_team.rb2 = rb2
-                            best_team.wr1 = wr1
-                            best_team.wr2 = wr2
-                            best_team.wr3 = wr3
-                            best_team.te = te
-                            best_team.defense = defense
+              if ((allowed_salary - my_salary) >= 18000)
+                my_points = qb.ppr + rb1.ppr + rb2.ppr + wr1.ppr
+                wr2_list.each do |wr2|
+                  if (wr1.player_id != wr2.player_id)
+                    my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary
+                    if ((allowed_salary - my_salary) >= 13500)
+                      my_points = qb.ppr + rb1.ppr + rb2.ppr + wr1.ppr + wr2.ppr
+                      wr3_list.each do |wr3|
+                        if (wr1.player_id != wr3.player_id && wr2.player_id != wr3.player_id)
+                          my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary
+                          if ((allowed_salary - my_salary) >= 9000)
+                            my_points = qb.ppr + rb1.ppr + rb2.ppr + wr1.ppr + wr2.ppr + wr3.ppr
+                            te_list.each do |te|
+                              my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary + te.salary
+                              if ((allowed_salary - my_salary) >= 4500)
+                                my_points = qb.ppr + rb1.ppr + rb2.ppr + wr1.salary + wr2.salary + wr3.salary + te.ppr
+                                def_list.each do |defense|
+                                  my_points = my_points + defense.ppr
+                                  my_salary = my_salary + defense.salary
+                                  if (my_salary <= allowed_salary && my_points > max_score)
+                                    max_score = my_points
+                                    best_team.qb = qb
+                                    best_team.rb1 = rb1
+                                    best_team.rb2 = rb2
+                                    best_team.wr1 = wr1
+                                    best_team.wr2 = wr2
+                                    best_team.wr3 = wr3
+                                    best_team.te = te
+                                    best_team.defense = defense
+                                  end
+                                end
+                              end
+                            end
                           end
                         end
                       end
@@ -144,8 +152,154 @@ class WeeklyRanking < ActiveRecord::Base
     puts "Best Team: #{best_team.pretty_print}"
   end
 
+  def self.pick_safest_lineup(week_number)
+    qb_list = eliminate_players_low(week_number, 'QB')
+    rb1_list = eliminate_players_low(week_number, 'RB')
+    rb2_list = eliminate_players_low(week_number, 'RB')
+    wr1_list = eliminate_players_low(week_number, 'WR')
+    wr2_list = eliminate_players_low(week_number, 'WR')
+    wr3_list = eliminate_players_low(week_number, 'WR')
+    te_list = eliminate_players_low(week_number, 'TE')
+    def_list = eliminate_players_low(week_number, 'DEF')
+    max_score = 0
+    allowed_salary = 55500
+
+    best_team = DailyTeam.new
+    qb_list.each do |qb|
+      my_salary = qb.salary
+      my_points = qb.ppr_low
+      rb1_list.each do |rb1|
+        my_salary = qb.salary + rb1.salary
+        my_points = qb.ppr_low + rb1.ppr_low
+        rb2_list.each do |rb2|
+          if (rb1.player_id != rb2.player_id)
+            my_salary = qb.salary + rb1.salary + rb2.salary
+            my_points = qb.ppr_low + rb1.ppr_low + rb2.ppr_low
+            wr1_list.each do |wr1|
+              my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary
+              if ((allowed_salary - my_salary) >= 18000)
+                my_points = qb.ppr_low + rb1.ppr_low + rb2.ppr_low + wr1.ppr_low
+                wr2_list.each do |wr2|
+                  if (wr1.player_id != wr2.player_id)
+                    my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary
+                    if ((allowed_salary - my_salary) >= 13500)
+                      my_points = qb.ppr_low + rb1.ppr_low + rb2.ppr_low + wr1.ppr_low + wr2.ppr_low
+                      wr3_list.each do |wr3|
+                        if (wr1.player_id != wr3.player_id && wr2.player_id != wr3.player_id)
+                          my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary
+                          if ((allowed_salary - my_salary) >= 9000)
+                            my_points = qb.ppr_low + rb1.ppr_low + rb2.ppr_low + wr1.ppr_low + wr2.ppr_low + wr3.ppr_low
+                            te_list.each do |te|
+                              my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary + te.salary
+                              if ((allowed_salary - my_salary) >= 4500)
+                                my_points = qb.ppr_low + rb1.ppr_low + rb2.ppr_low + wr1.salary + wr2.salary + wr3.salary + te.ppr_low
+                                def_list.each do |defense|
+                                  my_points = my_points + defense.ppr_low
+                                  my_salary = my_salary + defense.salary
+                                  if (my_salary <= allowed_salary && my_points > max_score)
+                                    max_score = my_points
+                                    best_team.qb = qb
+                                    best_team.rb1 = rb1
+                                    best_team.rb2 = rb2
+                                    best_team.wr1 = wr1
+                                    best_team.wr2 = wr2
+                                    best_team.wr3 = wr3
+                                    best_team.te = te
+                                    best_team.defense = defense
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+    puts "Safest Team: #{best_team.pretty_print}"
+  end
+
+  def self.pick_highest_potential_lineup(week_number)
+    qb_list = eliminate_players_high(week_number, 'QB')
+    rb1_list = eliminate_players_high(week_number, 'RB')
+    rb2_list = eliminate_players_high(week_number, 'RB')
+    wr1_list = eliminate_players_high(week_number, 'WR')
+    wr2_list = eliminate_players_high(week_number, 'WR')
+    wr3_list = eliminate_players_high(week_number, 'WR')
+    te_list = eliminate_players_high(week_number, 'TE')
+    def_list = eliminate_players_high(week_number, 'DEF')
+    max_score = 0
+    allowed_salary = 55500
+
+    best_team = DailyTeam.new
+    qb_list.each do |qb|
+      my_salary = qb.salary
+      my_points = qb.ppr_high
+      rb1_list.each do |rb1|
+        my_salary = qb.salary + rb1.salary
+        my_points = qb.ppr_high + rb1.ppr_high
+        rb2_list.each do |rb2|
+          if (rb1.player_id != rb2.player_id)
+            my_salary = qb.salary + rb1.salary + rb2.salary
+            my_points = qb.ppr_high + rb1.ppr_high + rb2.ppr_high
+            wr1_list.each do |wr1|
+              my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary
+              if ((allowed_salary - my_salary) >= 18000)
+                my_points = qb.ppr_high + rb1.ppr_high + rb2.ppr_high + wr1.ppr_high
+                wr2_list.each do |wr2|
+                  if (wr1.player_id != wr2.player_id)
+                    my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary
+                    if ((allowed_salary - my_salary) >= 13500)
+                      my_points = qb.ppr_high + rb1.ppr_high + rb2.ppr_high + wr1.ppr_high + wr2.ppr_high
+                      wr3_list.each do |wr3|
+                        if (wr1.player_id != wr3.player_id && wr2.player_id != wr3.player_id)
+                          my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary
+                          if ((allowed_salary - my_salary) >= 9000)
+                            my_points = qb.ppr_high + rb1.ppr_high + rb2.ppr_high + wr1.ppr_high + wr2.ppr_high + wr3.ppr_high
+                            te_list.each do |te|
+                              my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary + te.salary
+                              if ((allowed_salary - my_salary) >= 4500)
+                                my_points = qb.ppr_high + rb1.ppr_high + rb2.ppr_high + wr1.salary + wr2.salary + wr3.salary + te.ppr_high
+                                def_list.each do |defense|
+                                  my_points = my_points + defense.ppr_high
+                                  my_salary = my_salary + defense.salary
+                                  if (my_salary <= allowed_salary && my_points > max_score)
+                                    max_score = my_points
+                                    best_team.qb = qb
+                                    best_team.rb1 = rb1
+                                    best_team.rb2 = rb2
+                                    best_team.wr1 = wr1
+                                    best_team.wr2 = wr2
+                                    best_team.wr3 = wr3
+                                    best_team.te = te
+                                    best_team.defense = defense
+                                  end
+                                end
+                              end
+                            end
+                          end
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+    puts "Best potential Team: #{best_team.pretty_print}"
+  end
+
   def self.eliminate_players(week_number, pos)
-    players = WeeklyRanking.where('week = ? and salary > 0 and ppr > 0 and position = ?', week_number, pos)
+    players = WeeklyRanking.where('week = ? and salary > 0 and ppr > 0 and position = ?', week_number, pos).order(salary: :desc)
     puts "#{pos} List size = #{players.length}"
     filtered_player_list = []
     players.each do |player|
@@ -162,37 +316,85 @@ class WeeklyRanking < ActiveRecord::Base
       filtered_player_list.push(player) unless skip
     end
     puts "Final #{pos} list: #{filtered_player_list.length}"
-    filtered_player_list.each do |player|
-      puts "#{player.name}: #{player.salary} #{player.ppr}"
-    end
+    # filtered_player_list.each do |player|
+    #   puts "#{player.name}: #{player.salary} #{player.ppr}"
+    # end
     filtered_player_list
   end
 
-  def self.eliminate_players_orig(week_number)
-    # Shrink the lists for each position
-    all_pos = ['QB', 'RB', 'WR', 'TE', 'DEF']
-    all_pos.each do |pos|
-      players = WeeklyRanking.where('week = ? and salary > 0 and ppr > 0 and position = ?', week_number, pos)
-      puts "#{pos} List size = #{players.length}"
-      filtered_player_list = []
-      players.each do |player|
-        skip = false
-        players.each do |player_compare|
-          if ((player.salary > player_compare.salary && player.ppr <= player_compare.ppr) ||
-            (player.salary >= player_compare.salary && player.ppr < player_compare.ppr))
-            # more expensive and fewer points
-            # puts "Throwing out : #{player.name}"
-            skip = true
-            break
-          end
+  def self.eliminate_players_low(week_number, pos)
+    players = WeeklyRanking.where('week = ? and salary > 0 and ppr > 0 and position = ?', week_number, pos).order(salary: :desc)
+    puts "#{pos} List size = #{players.length}"
+    filtered_player_list = []
+    players.each do |player|
+      skip = false
+      players.each do |player_compare|
+        if ((player.salary > player_compare.salary && player.ppr_low <= player_compare.ppr_low) ||
+          (player.salary >= player_compare.salary && player.ppr_low < player_compare.ppr_low))
+          # more expensive and fewer points
+          # puts "Throwing out : #{player.name}"
+          skip = true
+          break
         end
-        filtered_player_list.push(player) unless skip
       end
-      puts "Final #{pos} list: #{filtered_player_list.length}"
-      filtered_player_list.each do |player|
-        puts "#{player.name}: #{player.salary} #{player.ppr}"
-      end
+      filtered_player_list.push(player) unless skip
     end
-    nil
+    puts "Final #{pos} list: #{filtered_player_list.length}"
+    # filtered_player_list.each do |player|
+    #   puts "#{player.name}: #{player.salary} #{player.ppr}"
+    # end
+    filtered_player_list
   end
+
+  def self.eliminate_players_high(week_number, pos)
+    players = WeeklyRanking.where('week = ? and salary > 0 and ppr > 0 and position = ?', week_number, pos).order(salary: :desc)
+    puts "#{pos} List size = #{players.length}"
+    filtered_player_list = []
+    players.each do |player|
+      skip = false
+      players.each do |player_compare|
+        if ((player.salary > player_compare.salary && player.ppr_high <= player_compare.ppr_high) ||
+          (player.salary >= player_compare.salary && player.ppr_high < player_compare.ppr_high))
+          # more expensive and fewer points
+          # puts "Throwing out : #{player.name}"
+          skip = true
+          break
+        end
+      end
+      filtered_player_list.push(player) unless skip
+    end
+    puts "Final #{pos} list: #{filtered_player_list.length}"
+    # filtered_player_list.each do |player|
+    #   puts "#{player.name}: #{player.salary} #{player.ppr}"
+    # end
+    filtered_player_list
+  end
+
+  # def self.eliminate_players_orig(week_number)
+  #   # Shrink the lists for each position
+  #   all_pos = ['QB', 'RB', 'WR', 'TE', 'DEF']
+  #   all_pos.each do |pos|
+  #     players = WeeklyRanking.where('week = ? and salary > 0 and ppr > 0 and position = ?', week_number, pos)
+  #     puts "#{pos} List size = #{players.length}"
+  #     filtered_player_list = []
+  #     players.each do |player|
+  #       skip = false
+  #       players.each do |player_compare|
+  #         if ((player.salary > player_compare.salary && player.ppr <= player_compare.ppr) ||
+  #           (player.salary >= player_compare.salary && player.ppr < player_compare.ppr))
+  #           # more expensive and fewer points
+  #           # puts "Throwing out : #{player.name}"
+  #           skip = true
+  #           break
+  #         end
+  #       end
+  #       filtered_player_list.push(player) unless skip
+  #     end
+  #     puts "Final #{pos} list: #{filtered_player_list.length}"
+  #     filtered_player_list.each do |player|
+  #       puts "#{player.name}: #{player.salary} #{player.ppr}"
+  #     end
+  #   end
+  #   nil
+  # end
 end
