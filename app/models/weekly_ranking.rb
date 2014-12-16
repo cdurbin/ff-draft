@@ -73,13 +73,14 @@ class WeeklyRanking < ActiveRecord::Base
     puts "Team with salary #{team.total_salary} is #{team.pretty_print}"
   end
 
-  def self.pick_optimal_lineup(week_number, field)
+  def self.pick_optimal_lineup(week_number, field, max_score = 0, rb2_list = nil, wr2_list = nil, wr3_list = nil, best_team = nil)
+    orig_max_score = max_score
     qb_list = eliminate_players(week_number, 'QB', field)
     rb1_list = eliminate_players(week_number, 'RB', field)
-    rb2_list = eliminate_players(week_number, 'RB', field)
+    rb2_list = eliminate_players(week_number, 'RB', field) unless rb2_list
     wr1_list = eliminate_players(week_number, 'WR', field)
-    wr2_list = eliminate_players(week_number, 'WR', field)
-    wr3_list = eliminate_players(week_number, 'WR', field)
+    wr2_list = eliminate_players(week_number, 'WR', field) unless wr2_list
+    wr3_list = eliminate_players(week_number, 'WR', field) unless wr3_list
     te_list = eliminate_players(week_number, 'TE', field)
     def_list = eliminate_players(week_number, 'DEF', field)
 
@@ -89,17 +90,16 @@ class WeeklyRanking < ActiveRecord::Base
     top_te_points = te_list.first.send(field.to_sym)
     top_def_points = def_list.first.send(field.to_sym)
 
-    puts "Top scorer values:
-    QB: #{top_qb_points}
-    RB: #{top_rb_points}
-    WR: #{top_wr_points}
-    TE: #{top_te_points}
-    DEF: #{top_def_points}"
+    # puts "Top scorer values:
+    # QB: #{top_qb_points}
+    # RB: #{top_rb_points}
+    # WR: #{top_wr_points}
+    # TE: #{top_te_points}
+    # DEF: #{top_def_points}"
 
-    max_score = 0
     allowed_salary = 55500
 
-    best_team = DailyTeam.new
+    best_team ||= DailyTeam.new
     qb_list.each do |qb|
       my_salary = qb.salary
       my_points = qb.send(field.to_sym)
@@ -165,12 +165,24 @@ class WeeklyRanking < ActiveRecord::Base
         end
       end
     end
-    puts "Best Team: #{best_team.pretty_print}"
+
+    if (max_score != orig_max_score)
+      # Iterate through again
+      rb2_list = eliminate_players(week_number, 'RB', field, [best_team.rb1, best_team.rb2])
+      wr2_list = eliminate_players(week_number, 'WR', field, [best_team.wr1, best_team.wr2, best_team.wr3])
+      wr3_list = eliminate_players(week_number, 'WR', field, [best_team.wr1, best_team.wr2, best_team.wr3])
+      puts "Best Team: #{best_team.pretty_print}"
+      pick_optimal_lineup(week_number, field, max_score, rb2_list, wr2_list, wr3_list, best_team)
+    else
+      puts "No change in team detected"
+    end
   end
 
-  def self.eliminate_players(week_number, pos, field)
+  def self.eliminate_players(week_number, pos, field, player_list = nil)
     players = WeeklyRanking.where('week = ? and salary > 0 and ppr > 0 and position = ?', week_number, pos).order(salary: :desc)
-    puts "#{pos} List size = #{players.length}"
+    # puts "#{pos} List size = #{players.length}"
+    players = players - player_list if player_list
+    # puts "#{pos} After removing players List size = #{players.length}"
     filtered_player_list = []
     players.each do |player|
       skip = false
@@ -185,7 +197,9 @@ class WeeklyRanking < ActiveRecord::Base
       end
       filtered_player_list.push(player) unless skip
     end
-    puts "Final #{pos} list: #{filtered_player_list.length}"
+    # puts "Final #{pos} list: #{filtered_player_list.length}"
+    filtered_player_list = filtered_player_list + player_list if player_list
+    # puts "After adding players back in: #{pos} list: #{filtered_player_list.length}"
     # filtered_player_list.each do |player|
     #   puts "#{player.name}: #{player.salary} #{player.ppr}"
     # end

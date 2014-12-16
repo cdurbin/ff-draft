@@ -19,9 +19,9 @@ class DailyTeam
     WR3: #{@wr3.name} #{@wr3.salary} #{wr3.ppr} #{wr3.ppr_low} #{wr3.ppr_high}
     TE: #{@te.name} #{@te.salary} #{te.ppr} #{te.ppr_low} #{te.ppr_high}
     DEF: #{@defense.name} #{@defense.salary} #{defense.ppr} #{defense.ppr_low} #{defense.ppr_high}
-    Total points: #{total_points.to_i}
-    Points ceiling: #{total_points_high.to_i}
-    Points floor: #{total_points_low.to_i}
+    Total points: #{total_points.round(1)}
+    Points ceiling: #{total_points_high.round(1)}
+    Points floor: #{total_points_low.round(1)}
     Total salary: #{total_salary}"
   end
 
