@@ -73,15 +73,15 @@ class WeeklyRanking < ActiveRecord::Base
     puts "Team with salary #{team.total_salary} is #{team.pretty_print}"
   end
 
-  def self.pick_optimal_lineup_helper(week_number, field)
-    qb_list = eliminate_players_helper(week_number, 'QB', field)
-    rb1_list = eliminate_players_helper(week_number, 'RB', field)
-    rb2_list = eliminate_players_helper(week_number, 'RB', field)
-    wr1_list = eliminate_players_helper(week_number, 'WR', field)
-    wr2_list = eliminate_players_helper(week_number, 'WR', field)
-    wr3_list = eliminate_players_helper(week_number, 'WR', field)
-    te_list = eliminate_players_helper(week_number, 'TE', field)
-    def_list = eliminate_players_helper(week_number, 'DEF', field)
+  def self.pick_optimal_lineup(week_number, field)
+    qb_list = eliminate_players(week_number, 'QB', field)
+    rb1_list = eliminate_players(week_number, 'RB', field)
+    rb2_list = eliminate_players(week_number, 'RB', field)
+    wr1_list = eliminate_players(week_number, 'WR', field)
+    wr2_list = eliminate_players(week_number, 'WR', field)
+    wr3_list = eliminate_players(week_number, 'WR', field)
+    te_list = eliminate_players(week_number, 'TE', field)
+    def_list = eliminate_players(week_number, 'DEF', field)
 
     top_qb_points = qb_list.first.send(field.to_sym)
     top_rb_points = rb1_list.first.send(field.to_sym)
@@ -168,7 +168,7 @@ class WeeklyRanking < ActiveRecord::Base
     puts "Best Team: #{best_team.pretty_print}"
   end
 
-  def self.eliminate_players_helper(week_number, pos, field)
+  def self.eliminate_players(week_number, pos, field)
     players = WeeklyRanking.where('week = ? and salary > 0 and ppr > 0 and position = ?', week_number, pos).order(salary: :desc)
     puts "#{pos} List size = #{players.length}"
     filtered_player_list = []
