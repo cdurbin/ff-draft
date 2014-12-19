@@ -87,6 +87,7 @@ class WeeklyRanking < ActiveRecord::Base
     top_qb_points = qb_list.first.send(field.to_sym)
     top_rb_points = rb1_list.first.send(field.to_sym)
     top_wr_points = wr1_list.first.send(field.to_sym)
+    second_wr_points = wr1_list.second.send(field.to_sym)
     top_te_points = te_list.first.send(field.to_sym)
     top_def_points = def_list.first.send(field.to_sym)
 
@@ -107,22 +108,22 @@ class WeeklyRanking < ActiveRecord::Base
         my_salary = qb.salary + rb1.salary
         my_points = qb.send(field.to_sym) + rb1.send(field.to_sym)
         rb2_list.each do |rb2|
-          if (rb1.player_id != rb2.player_id)
+          if (rb1.player_id != rb2.player_id && rb2.salary <= rb1.salary)
             my_salary = qb.salary + rb1.salary + rb2.salary
             my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym)
             wr1_list.each do |wr1|
               my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary
               if ((allowed_salary - my_salary) >= 18000)
                 my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.send(field.to_sym)
-                if (my_points + top_wr_points + top_wr_points + top_te_points + top_def_points > max_score)
+                if (my_points + top_wr_points + second_wr_points + top_te_points + top_def_points > max_score)
                   wr2_list.each do |wr2|
-                    if (wr1.player_id != wr2.player_id)
+                    if (wr1.player_id != wr2.player_id && wr2.salary <= wr1.salary)
                       my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary
                       if ((allowed_salary - my_salary) >= 13500)
                         my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.send(field.to_sym) + wr2.send(field.to_sym)
                         if (my_points + top_wr_points + top_te_points + top_def_points > max_score)
                           wr3_list.each do |wr3|
-                            if (wr1.player_id != wr3.player_id && wr2.player_id != wr3.player_id)
+                            if (wr1.player_id != wr3.player_id && wr2.player_id != wr3.player_id && wr3.salary <= wr2.salary)
                               my_salary = qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary
                               if ((allowed_salary - my_salary) >= 9000)
                                 my_points = qb.send(field.to_sym) + rb1.send(field.to_sym) + rb2.send(field.to_sym) + wr1.send(field.to_sym) + wr2.send(field.to_sym) + wr3.send(field.to_sym)
