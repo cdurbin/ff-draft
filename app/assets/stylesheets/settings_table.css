@@ -1,0 +1,26 @@
+.settings-table h1{
+  color: green;
+  font-size: large;
+  text-align: center;
+}
+
+.settings-table h1 {
+  color: green;
+  text-align: left;
+  font-size: large;
+  padding-left: 125px;
+}
+
+.settings-table td{
+  font-size: medium;
+  color: black;
+  width: 165px;
+  text-align: left;
+}
+
+.settings-table th {
+  font-size: medium;
+  color: purple;
+  text-align: left;
+  width: 165px;
+}

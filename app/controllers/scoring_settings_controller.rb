@@ -18,7 +18,11 @@ class ScoringSettingsController < ApplicationController
   end
 
   def show
-    @scoring_settings = ScoringSettings.find_by id: params[:id]
+    @scoring_settings = ScoringSetting.find_by id: params[:id]
+  end
+
+  def index
+    @scoring_settings = ScoringSetting.all
   end
 
 end

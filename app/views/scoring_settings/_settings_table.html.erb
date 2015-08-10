@@ -1,0 +1,37 @@
+<div class="settings-table">
+  <h1>Scoring Settings </h1>
+  <table>
+    <tr>
+      <th>League</th>
+      <th>Passing Yards</th>
+      <th>Interceptions Thrown</th>
+      <th>Passing TD</th>
+      <th>2 PT Conversions</th>
+      <th>Rush yards</th>
+      <th>Rushing TD</th>
+      <th>Fumbles Lost</th>
+      <th>Receptions</th>
+      <th>Receiving Yards</th>
+      <th>Receiving TD</th>
+      <th>Return Yards</th>
+      <th>Misc TD</th>
+    </tr>
+    <% settings.each do |setting| %>
+      <tr>
+        <td><%= setting.name %></td>
+        <td><%= setting.passing_yards %></td>
+        <td><%= setting.int_thrown %></td>
+        <td><%= setting.passing_td %></td>
+        <td><%= setting.misc_2pc %></td>
+        <td><%= setting.rush_yards %></td>
+        <td><%= setting.rush_td %></td>
+        <td><%= setting.fumbles_lost %></td>
+        <td><%= setting.rec %></td>
+        <td><%= setting.rec_yards %></td>
+        <td><%= setting.rec_td %></td>
+        <td><%= setting.return_yards %></td>
+        <td><%= setting.misc_td %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
