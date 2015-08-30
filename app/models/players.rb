@@ -6,12 +6,12 @@ class Players
     def save_players
       positions.each do |pos|
         # Uncomment this to hit the API
-        #players = FFNerd.draft_projections(pos)
+        players = FFNerd.draft_projections(pos)
         save_by_position(pos, players)
       end
 
       # Uncomment this to hit the API
-      #players = FFNerd.standard_draft_rankings()
+      players = FFNerd.standard_draft_rankings()
       save_rankings(players)
     end
 
