@@ -63,10 +63,10 @@ class PlayerScore < ActiveRecord::Base
     qbs = PlayerScore.where({scoring_settings_id: scoring_settings_id, position: "QB"}).order("fantasy_points desc")
 
 
-    last_rb = rbs.at(29)
-    last_wr = wrs.at(29)
-    last_te = tes.at(11)
-    last_qb = qbs.at(11)
+    last_rb = rbs.at(48)
+    last_wr = wrs.at(48)
+    last_te = tes.at(18)
+    last_qb = qbs.at(18)
 
     [[rbs, last_rb], [wrs, last_wr], [qbs, last_qb], [tes, last_te]].each do |positions_array|
       players = positions_array.at(0)
