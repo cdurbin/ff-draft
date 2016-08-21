@@ -2,9 +2,12 @@
 
 http://localhost:3000/player_scores?draft_id=4
 
-# Modify database used in database.yml
+# Modify database used in database.yml (Ignore warnings about db/test.sqlite3 already existing - it creates both dev and test databases)
 rake db:create
 rake db:migrate
+
+# Bring up the server
+rails s&
 
 # Create Dave's scoring settings
 curl -XPOST "http://localhost:3000/scoring_settings?passing_yards=0.05&int_thrown=-2&passing_td=6&misc_2pc=2&rush_yards=0.1&rush_td=6&fumbles_lost=-2&rec=0&rec_yards=0.1&return_yards=0.04&misc_td=6&rec_td=6&name=Daves_league" -d ''
@@ -20,6 +23,7 @@ curl -XPOST "http://localhost:3000/leagues?name=Bryan2015&scoring_settings_id=2"
 
 # Save players
 # Uncomment lines to hit the API
+# $12 - Go to http://www.fantasyfootballnerd.com/fantasy-football-api and upgrade to level 2
 rails c
 Players.save_players
 
@@ -28,10 +32,8 @@ rails c
 PlayerScore.save_scores(scoring_setting_id)
 PlayerScore.save_rankings(scoring_setting_id)
 
-
 # Create a draft
 curl -XPOST "http://localhost:3000/drafts?league_id=1" -d ''
 
 # Initialize draft picks (creating a draft should do this)
 DraftPick.initialize_draft_picks(2)
-

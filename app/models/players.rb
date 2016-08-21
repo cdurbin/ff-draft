@@ -1,8 +1,6 @@
 class Players
   class << self
 
-    NUM_TO_CONSIDER = 24
-
     def save_players
       positions.each do |pos|
         # Uncomment this to hit the API
