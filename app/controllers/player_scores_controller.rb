@@ -9,8 +9,9 @@ class PlayerScoresController < ApplicationController
     get_recent_picks(picks)
     get_undrafted_by_position()
 
-    @top_values = PlayerScore.get_top(24, 0, @rbs, @wrs, @qbs, @tes, @defenses, @kickers)
-    @next_values = PlayerScore.get_top(24, 24, @rbs, @wrs, @qbs, @tes, @defenses, @kickers)
+    @top_values = PlayerScore.get_top(12, 0, @rbs, @wrs, @qbs, @tes, @defenses, @kickers)
+    @next_values = PlayerScore.get_top(12, 12, @rbs, @wrs, @qbs, @tes, @defenses, @kickers)
+    @third_values = PlayerScore.get_top(12, 24, @rbs, @wrs, @qbs, @tes, @defenses, @kickers)
   end
 
   def show
@@ -35,7 +36,7 @@ class PlayerScoresController < ApplicationController
   end
 
   def get_recent_picks(picks)
-    @recent_picks = picks.order("pick_number desc").limit(24)
+    @recent_picks = picks.order("pick_number desc").limit(60)
     @recent_picks.each do |pick|
       pick.display_name = (PlayerScore.find_by(player_id: pick.player_id) || Defense.find_by(player_id: pick.player_id) || Kicker.find_by(player_id: pick.player_id)).display_name
     end

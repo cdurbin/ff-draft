@@ -1,20 +1,54 @@
-<h1><%= @league.name %></h1>
-<div class="groupings">
-  <ul>
-    <li><%= render partial: "value_table", locals: {players: @top_values} %></li>
-    <li><%= render partial: "value_table", locals: {players: @next_values} %></li>
-    <%= render partial: "recent_picks_table", locals: {draft_picks: @recent_picks} %>
-  </ul>
+<div id="main-container" class="container-fluid">
+  <h1><%= @league.name %></h1>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>Top Values</h3>
+          <%= render partial: "value_table", locals: {players: @top_values} %>
+        </div>
+        <div class="col-md-4">
+          <h3>Top Values</h3>
+          <%= render partial: "value_table", locals: {players: @next_values} %>
+        </div>
+        <div class="col-md-4">
+          <h3>Top Values</h3>
+          <%= render partial: "value_table", locals: {players: @third_values} %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12">
+              <%= render partial: "position_table", locals: {position: "Quarterbacks", players: @qbs} %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <%= render partial: "position_table", locals: {position: "Defenses", players: @defenses} %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <%= render partial: "position_table", locals: {position: "Running Backs", players: @rbs} %>
+        </div>
+        <div class="col-md-3">
+          <%= render partial: "position_table", locals: {position: "Wide Receivers", players: @wrs} %>
+        </div>
+        <div class="col-md-3">
+          <div class="row">
+            <%= render partial: "position_table", locals: {position: "Tight Ends", players: @tes} %>
+          </div>
+          <div class="row">
+            <%= render partial: "position_table", locals: {position: "Kickers", players: @kickers} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <%= render partial: "recent_picks_table", locals: {draft_picks: @recent_picks} %>
+    </div>
+  </div>
 </div>
-<div class="groupings">
-  <ul>
-    <li><%= render partial: "position_table", locals: {position: "Quarterbacks", players: @qbs} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Running Backs", players: @rbs} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Wide Receivers", players: @wrs} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Tight Ends", players: @tes} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Defenses", players: @defenses} %></li>
-    <li><%= render partial: "position_table", locals: {position: "Kickers", players: @kickers} %></li>
-  </ul>
-<!--   <p class=links> <%= link_to "Reset Picks", reset_picks_draft_picks_path(draft_id: @draft.id), method: :post %> </p> -->
-</div>
-
+<br>
+<div class="btn-danger col-md-1"> <%= link_to "Reset Picks", reset_picks_draft_picks_path(draft_id: @draft.id), method: :post %></div>
