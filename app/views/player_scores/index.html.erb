@@ -46,9 +46,12 @@
       </div>
     </div>
     <div class="col-md-3">
-      <%= render partial: "recent_picks_table", locals: {draft_picks: @recent_picks} %>
+      <div class="row">
+        <%= render partial: "recent_picks_table", locals: {draft_picks: @recent_picks} %>
+      </div>
+      <div class="row">
+        <%= link_to "Reset Picks", reset_picks_draft_picks_path(draft_id: @draft.id), method: :post, class: 'btn btn-danger' %></div>
+      </div>
     </div>
   </div>
 </div>
-<br>
-<div class="btn-danger col-md-1"> <%= link_to "Reset Picks", reset_picks_draft_picks_path(draft_id: @draft.id), method: :post %></div>
