@@ -13,8 +13,11 @@
         <td> <%= "(#{player.overall_rank}) " %></td>
       <% end %>
       <td><%= link_to "#{player.display_name}", draft_picks_path(draft_id: @draft.id, player_id: player.player_id), method: :post %></td>
-      <!-- <td><div style="background-color: #00FFFF; width: <%= player.value_above_nominal.to_i %>px"> <%= player.value_above_nominal.to_i %></div></td> -->
-      <td><div style="color: #006400; background-color: #006400; width: <%= player.value_above_nominal.to_i %>px">l</div></td>
+      <% if player.value_above_nominal.to_i > 1 %>
+        <td><div style="color: #006400; background-color: #006400; width: <%= player.value_above_nominal.to_i %>px">l</div></td>
+      <% else %>
+        <td></td>
+      <% end %>
       <td><%= player.value_above_nominal.to_i %></td>
     </tr>
   <% end %>

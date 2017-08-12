@@ -1,18 +1,35 @@
-<table class="table">
-  <h3>Drafted <small><%= @counts.to_json %></small></h3>
-  <tr>
-    <th>Player</th>
-    <th>Pick #</th>
-  </tr>
-  <% draft_picks.each do |draft_pick| %>
+<div class="row">
+  <table class="table">
+    <h3>Drafted Counts</h3>
     <tr>
-        <td><%= link_to "#{draft_pick.display_name}", undo_pick_draft_picks_path(draft_id: @draft.id, player_id: draft_pick.player_id, action: 'undo_pick'), method: 'post' %></td>
-        <td><%= "#{draft_pick.pick_number}" %></td>
+      <th>Position</th>
+      <th></th>
+      <th>Count</th>
     </tr>
-  <% end %>
-  <% i = draft_picks.length %>
-  <!-- <% while (i < 24) do %>
-    <tr> <td> None </td> </tr>
-    <% i = i + 1 %>
-  <% end %> -->
-</table>
+    <% @counts.each do |position, count| %>
+      <tr>
+        <td><%= "#{position}" %></td>
+        <% if count > 0 %>
+          <td><div style="color: #FF7F50; background-color: #FF7F50; width: <%= (count * 3) %>px">l</div></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td><%= count %></td>
+    <% end %>
+  </table>
+</div>
+<div class="row">
+  <table class="table">
+    <h3>Drafted</h3>
+    <tr>
+      <th>Player</th>
+      <th>Pick #</th>
+    </tr>
+    <% draft_picks.each do |draft_pick| %>
+      <tr>
+          <td><%= link_to "#{draft_pick.display_name}", undo_pick_draft_picks_path(draft_id: @draft.id, player_id: draft_pick.player_id, action: 'undo_pick'), method: 'post' %></td>
+          <td><%= "#{draft_pick.pick_number}" %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
