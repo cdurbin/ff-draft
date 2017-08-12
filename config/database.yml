@@ -6,7 +6,7 @@
 development:
   adapter: sqlite3
   # database: db/development-2015-try2.sqlite3
-  database: db/development-2016.sqlite3
+  database: db/development-2017-1.sqlite3
   pool: 5
   timeout: 5000
 

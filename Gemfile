@@ -1,8 +1,11 @@
-source 'https://rubygems.org'
+#source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'fantasy_football_nerd'
 gem 'pry'
 
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
