@@ -1,17 +1,18 @@
-#source 'https://rubygems.org'
-source 'http://rubygems.org'
+source 'https://rubygems.org'
+#source 'http://rubygems.org'
 
 gem 'fantasy_football_nerd'
-gem 'pry'
+gem 'pry-byebug'
+gem 'rails-html-sanitizer', '~> 1.0.3'
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '4.2.8'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', '~> 1.3.13'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -49,4 +50,4 @@ gem 'unicorn'
 gem 'capistrano', group: :development
 
 # Use debugger
-gem 'debugger', group: [:development, :test]
+#gem 'debugger', group: [:development, :test]
